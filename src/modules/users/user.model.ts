@@ -3,7 +3,7 @@ import { Schema, model } from 'mongoose';
 import { User } from './user.interface';
 
 const userSchema = new Schema<User>({
-  userId: { type: Number, required: true },
+  userId: { type: Number, required: true, unique: true },
   username: { type: String, required: true },
   password: { type: String, required: true },
   fullName: {
@@ -11,7 +11,7 @@ const userSchema = new Schema<User>({
     lastName: { type: String, required: true },
   },
   age: { type: Number, required: true },
-  email: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   isActive: { type: String, enum: ['active', 'inactive'], required: true },
   hobbies: { type: [String], required: true },
   address: {
@@ -21,6 +21,6 @@ const userSchema = new Schema<User>({
   },
 });
 
-const User = model<User>('User', userSchema);
+const UserModel = model<User>('UserModel', userSchema);
 
-export default User;
+export default UserModel;
