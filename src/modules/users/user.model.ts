@@ -1,6 +1,8 @@
 import { Schema, model } from 'mongoose';
+import bcrypt from 'bcrypt';
 
 import { User } from './user.interface';
+import config from '../../app/config';
 
 const userSchema = new Schema<User>({
   userId: { type: Number, required: true, unique: true },
@@ -19,6 +21,27 @@ const userSchema = new Schema<User>({
     city: { type: String, required: true },
     country: { type: String, required: true },
   },
+});
+
+// pre save hook
+
+userSchema.pre('save', async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const user = this;
+  // hashing password and save into DB
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+  next();
+});
+
+// post sae middleware
+
+userSchema.post('save', function (doc, next) {
+  doc.password = '';
+
+  next();
 });
 
 const UserModel = model<User>('UserModel', userSchema);
