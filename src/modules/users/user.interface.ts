@@ -9,7 +9,7 @@ interface User {
   age: number;
   email: string;
   isActive: 'active' | 'inactive';
-  hobbies: [string, string];
+  hobbies: [string, string, string];
   address: {
     street: string;
     city: string;

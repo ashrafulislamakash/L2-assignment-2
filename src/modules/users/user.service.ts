@@ -8,8 +8,16 @@ const createUserInDB = async (user: User) => {
 
 const getAllUserFromBD = async () => {
   const result = await UserModel.find();
-
   return result;
 };
 
-export const UserServices = { createUserInDB, getAllUserFromBD };
+const getSingleUserFromBD = async (id: number) => {
+  const result = await UserModel.findOne({ id });
+  return result;
+};
+
+export const UserServices = {
+  createUserInDB,
+  getAllUserFromBD,
+  getSingleUserFromBD,
+};
