@@ -18,8 +18,8 @@ const getSingleUserFromBD = async (userId: number) => {
   return result;
 };
 
-const updateUserFromDB = async (id: number, userData: User) => {
-  const result = await UserModel.findByIdAndUpdate(id, userData, {
+const updateUserFromDB = async (userId: number) => {
+  const result = await UserModel.findByIdAndUpdate(userId, {
     new: true,
     runValidators: true,
   });
@@ -27,8 +27,8 @@ const updateUserFromDB = async (id: number, userData: User) => {
   return result;
 };
 
-const deleteUserFromDB = async (id: number) => {
-  const result = await UserModel.findByIdAndDelete(id);
+const deleteUserFromDB = async (userId: number) => {
+  const result = await UserModel.findOneAndDelete({ userId });
   return result;
 };
 
