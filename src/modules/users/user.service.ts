@@ -11,8 +11,24 @@ const getAllUserFromBD = async () => {
   return result;
 };
 
-const getSingleUserFromBD = async (id: number) => {
-  const result = await UserModel.findOne({ id });
+const getSingleUserFromBD = async (userId: number) => {
+  const result = await UserModel.findOne({ userId }).select(
+    '-_id userId username fullName age email isActive hobbies address ',
+  );
+  return result;
+};
+
+const updateUserFromDB = async (id: number, userData: User) => {
+  const result = await UserModel.findByIdAndUpdate(id, userData, {
+    new: true,
+    runValidators: true,
+  });
+
+  return result;
+};
+
+const deleteUserFromDB = async (id: number) => {
+  const result = await UserModel.findByIdAndDelete(id);
   return result;
 };
 
@@ -20,4 +36,6 @@ export const UserServices = {
   createUserInDB,
   getAllUserFromBD,
   getSingleUserFromBD,
+  updateUserFromDB,
+  deleteUserFromDB,
 };

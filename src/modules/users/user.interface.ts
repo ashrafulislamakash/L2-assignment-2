@@ -18,4 +18,3 @@ interface User {
 }
 
 export { User };
-
