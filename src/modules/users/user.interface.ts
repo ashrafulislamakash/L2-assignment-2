@@ -1,4 +1,8 @@
-interface User {
+import { Model } from 'mongoose';
+
+import { TOrder } from '../order/order.interface';
+
+export interface TUser {
   userId: number;
   username: string;
   password: string;
@@ -15,6 +19,11 @@ interface User {
     city: string;
     country: string;
   };
+  orders?: TOrder[];
 }
 
-export { User };
+// Custom Static Methods
+export interface UserModel extends Model<TUser> {
+  // eslint-disable-next-line
+  isUserExist(userId: number): Promise<TUser | null>;
+}

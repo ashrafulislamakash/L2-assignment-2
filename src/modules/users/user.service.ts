@@ -1,7 +1,8 @@
-import { User } from './user.interface';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { TUser } from './user.interface';
 import UserModel from './user.model';
 
-const createUserInDB = async (user: User) => {
+const createUserInDB = async (user: TUser) => {
   const result = await UserModel.create(user);
   return result;
 };
@@ -18,8 +19,8 @@ const getSingleUserFromBD = async (userId: number) => {
   return result;
 };
 
-const updateUserFromDB = async (userId: number) => {
-  const result = await UserModel.findByIdAndUpdate(userId, {
+const updateUserFromDB = async (userId: number, userData: TUser) => {
+  const result = await UserModel.findByIdAndUpdate(userId, userData, {
     new: true,
     runValidators: true,
   });

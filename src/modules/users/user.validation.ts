@@ -20,4 +20,5 @@ const userValidationSchema = Joi.object({
     country: Joi.string().required(),
   }).required(),
 });
+
 export default userValidationSchema;
