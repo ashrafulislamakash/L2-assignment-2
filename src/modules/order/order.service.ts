@@ -7,7 +7,7 @@ interface OrderDocument extends Document, TOrder {
   orders: TOrder[];
 }
 
-const addProductToOrder = async (userId: number, data: TOrder) => {
+const addProductToOrderInDB = async (userId: number, data: TOrder) => {
   if (await UserModel.isUserExist(userId)) {
     const user = (await UserModel.findOneAndUpdate(
       {
@@ -34,7 +34,7 @@ const addProductToOrder = async (userId: number, data: TOrder) => {
   }
 };
 
-const getAllOrdersForAUser = async (userId: number) => {
+const getAllOrdersForAUserInDB = async (userId: number) => {
   if (await UserModel.isUserExist(userId)) {
     const user = await UserModel.findOne({ userId: userId });
     if (!user) {
@@ -46,7 +46,7 @@ const getAllOrdersForAUser = async (userId: number) => {
   }
 };
 
-const calculateTotalPriceForAllOrdersForAUser = async (userId: number) => {
+const calculateTotalPriceForAllOrdersForAUserInDB = async (userId: number) => {
   if (await UserModel.isUserExist(userId)) {
     const user = await UserModel.findOne({ userId: userId });
     if (!user) {
@@ -65,7 +65,7 @@ const calculateTotalPriceForAllOrdersForAUser = async (userId: number) => {
 };
 
 export const OrderServices = {
-  addProductToOrder,
-  getAllOrdersForAUser,
-  calculateTotalPriceForAllOrdersForAUser,
+  addProductToOrderInDB,
+  getAllOrdersForAUserInDB,
+  calculateTotalPriceForAllOrdersForAUserInDB,
 };

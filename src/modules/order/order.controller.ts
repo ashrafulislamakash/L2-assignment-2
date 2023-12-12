@@ -12,7 +12,7 @@ const addProductToOrder = async (req: Request, res: Response) => {
 
     // Validate request body here if needed
     // eslint-disable-next-line
-    const result = await OrderServices.addProductToOrder(
+    const result = await OrderServices.addProductToOrderInDB(
       parseInt(userId),
       zodParsedData,
     );
@@ -20,7 +20,7 @@ const addProductToOrder = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: 'Order created successfully!',
-      data: null,
+      data: result,
     });
   } catch (err: any) {
     return res.status(500).json({
@@ -33,7 +33,7 @@ const getAllOrders = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId;
 
-    const result = await OrderServices.getAllOrdersForAUser(parseInt(userId));
+    const result = await OrderServices.getAllOrdersForAUserInDB(parseInt(userId));
 
     res.status(200).json({
       success: true,
@@ -51,7 +51,7 @@ const calculateTotalPrice = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId;
 
-    const result = await OrderServices.calculateTotalPriceForAllOrdersForAUser(
+    const result = await OrderServices.calculateTotalPriceForAllOrdersForAUserInDB(
       parseInt(userId),
     );
 

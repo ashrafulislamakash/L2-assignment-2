@@ -12,7 +12,7 @@ const userValidationSchema = Joi.object({
   }).required(),
   age: Joi.number().required(),
   email: Joi.string().email().required(),
-  isActive: Joi.string().valid('active', 'inactive').required(),
+  isActive: Joi.boolean(),
   hobbies: Joi.array().items(Joi.string()).required(),
   address: Joi.object({
     street: Joi.string().required(),

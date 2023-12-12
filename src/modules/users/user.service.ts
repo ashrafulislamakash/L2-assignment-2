@@ -8,8 +8,27 @@ const createUserInDB = async (user: TUser) => {
 };
 
 const getAllUserFromBD = async () => {
-  const result = await UserModel.find();
-  return result;
+  // const result = await UserModel.find();
+
+  try {
+    const result = await UserModel.aggregate([
+      {
+        $project: {
+          password: 0,
+          isActive: 0,
+          hobbies: 0,
+          orders: 0,
+          userId: 0,
+
+          _id: 0,
+          __v: 0,
+        },
+      },
+    ]);
+    return result;
+  } catch (error: any) {
+    throw new Error(error);
+  }
 };
 
 const getSingleUserFromBD = async (userId: number) => {

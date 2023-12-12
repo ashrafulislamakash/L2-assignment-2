@@ -15,14 +15,17 @@ const userSchema = new Schema<TUser, UserModel>({
   },
   age: { type: Number, required: true },
   email: { type: String, required: true },
-  isActive: { type: String, enum: ['active', 'inactive'], required: true },
+  isActive: { type: Boolean, required: true },
+  // isActive: { type: String, enum: ['active', 'inactive'], required: true },
   hobbies: { type: [String], required: true },
   address: {
     street: { type: String, required: true },
     city: { type: String, required: true },
     country: { type: String, required: true },
   },
-  orders: { type: [OrderSchema] },
+  orders: {
+    type: [OrderSchema],
+  },
 });
 
 // pre save hook
@@ -68,6 +71,7 @@ userSchema.post('findOneAndUpdate', async function (result, next) {
   }
   result.isDeleted = undefined;
   result._id = undefined;
+
   if (result.orders && result.orders.length === 0) {
     result.orders = undefined;
   }

@@ -16,7 +16,7 @@ app.use('/api/users', UserRoutes);
 app.use('/api/users', OrderRoutes);
 
 const getAController = (req: Request, res: Response) => {
-  res.send(' L2 Assignment  2');
+  res.send(' Assignment-2 Running');
 };
 
 app.get('/', getAController);

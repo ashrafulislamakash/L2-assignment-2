@@ -22,7 +22,7 @@ const createUser = async (req: Request, res: Response) => {
       message: 'Invalid User',
       error: {
         code: 404,
-        description: 'User not found!',
+        description: 'User created failed!',
       },
     });
   }
@@ -44,6 +44,10 @@ const getAllUsers = async (req: Request, res: Response) => {
     });
   }
 };
+
+
+
+
 const getSingleUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
@@ -51,7 +55,7 @@ const getSingleUser = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: 'Student is retrieved succesfully',
+      message: 'Student is retrieved successfully',
       data: result,
     });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -66,16 +70,14 @@ const getSingleUser = async (req: Request, res: Response) => {
 
 const updateUser = async (req: Request, res: Response) => {
   try {
-    const UserModel = req.body;
-
     const userId = Number(req.params.userId);
-
     if (isNaN(userId)) {
       return res.status(404).json({
         message: 'Invalid user ID',
       });
     }
 
+    const UserModel = req.body;
     const result = await UserServices.updateUserFromDB(userId, UserModel);
 
     if (!result) {
@@ -94,6 +96,7 @@ const updateUser = async (req: Request, res: Response) => {
       message: 'User updated successfully!',
       data: result,
     });
+    
   } catch (err) {
     return res.status(500).json({
       cautions: (err as Error)?.message,
